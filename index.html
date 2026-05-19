@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Platinum Anniversary 2028</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:#f4efe6;color:#1a1a1a;min-height:100vh}
+a{text-decoration:none;color:inherit}
+.hero{background:#0d0d0d;padding:52px 32px 44px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 60%,rgba(192,57,43,0.15) 0%,transparent 55%),radial-gradient(ellipse at 75% 40%,rgba(26,82,118,0.18) 0%,transparent 55%)}
+.hero-tag{display:inline-block;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#c9a84c;border:1px solid rgba(201,168,76,0.35);padding:5px 14px;border-radius:20px;margin-bottom:16px;position:relative}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,72px);font-weight:900;color:#fff;line-height:1;position:relative;letter-spacing:-1px}
+.hero h1 em{color:#c9a84c;font-style:italic}
+.hero-sub{margin-top:10px;color:rgba(255,255,255,0.38);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;position:relative}
+.committee{background:#181820;padding:36px 24px 40px}
+.committee-label{text-align:center;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:28px}
+.committee-row{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.member{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.member-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #c9a84c;background:#181820}
+.member-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff}
+.member-role{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.38)}
+.dest-nav{background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:center;gap:0;position:sticky;top:0;z-index:100;padding:0 12px;flex-wrap:wrap}
+.dest-btn{background:none;border:none;color:rgba(255,255,255,0.38);font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;padding:14px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
+.dest-btn:hover{color:rgba(255,255,255,0.65)}
+.dest-btn.active[data-dest="marbella"]{color:#e05c4a;border-bottom-color:#e05c4a}
+.dest-btn.active[data-dest="mykonos"]{color:#4a90d9;border-bottom-color:#4a90d9}
+.dest-btn.active[data-dest="vote"]{color:#c9a84c;border-bottom-color:#c9a84c}
+.dest-btn.active[data-dest="vs"]{color:rgba(255,255,255,0.7);border-bottom-color:rgba(255,255,255,0.4)}
+.content{max-width:1000px;margin:0 auto;padding:0 20px 60px}
+.cover{position:relative;width:100%;aspect-ratio:16/9;max-height:520px;overflow:hidden;background:#0a0a0a}
+.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.45) 60%,rgba(0,0,0,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:48px 40px 36px}
+.cover-flag{font-size:22px;margin-bottom:14px;opacity:0.95}
+.cover-title{font-family:'Playfair Display',serif;font-size:clamp(48px,9vw,96px);font-weight:900;color:#fff;line-height:0.95;letter-spacing:-2px;margin-bottom:10px}
+.cover-title em{font-style:italic;font-weight:700}
+.cover-sub{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:500}
+.cover-medal{position:absolute;top:32px;right:32px;width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2)}
+.cover.marbella .cover-title em{color:#ff8c61}
+.cover.mykonos .cover-title em{color:#7ab8f0}
+.verdict-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#0d0d0d;margin-bottom:40px}
+.verdict-cell{padding:24px 20px;border-right:1px solid rgba(255,255,255,0.07)}
+.verdict-cell:last-child{border-right:none}
+.verdict-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px}
+.verdict-val{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;line-height:1.2}
+.verdict-cell.accent .verdict-val{color:#c9a84c}
+.dest-panel{display:none}.dest-panel.active{display:block}
+.intro-strip{padding:0 0 28px;text-align:center}
+.intro-text{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:#444;line-height:1.6;max-width:680px;margin:32px auto 0}
+.section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid #e0d8cc;margin-top:8px}
+.priorities-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+.priority-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e8e0d4;cursor:pointer;transition:all 0.25s;display:flex;flex-direction:column;color:inherit;height:100%}
+.priority-card:hover{transform:translateY(-3px);border-color:#c9a84c;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+.priority-img{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:#1a1a1a;flex-shrink:0}
+.priority-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;display:block}
+.priority-card:hover .priority-img img{transform:scale(1.06)}
+.priority-img .pri-badge{position:absolute;top:10px;left:10px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;font-weight:600;background:rgba(0,0,0,0.55);color:#fff}
+.priority-img .pri-badge.gap{background:rgba(180,30,30,0.78)}
+.priority-img .read-more{position:absolute;bottom:10px;right:10px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 10px;border-radius:20px;background:rgba(0,0,0,0.55);color:#fff;font-weight:600;display:flex;align-items:center;gap:4px}
+.priority-body{padding:14px;display:flex;flex-direction:column;flex:1;gap:6px}
+.priority-icon{font-size:18px}
+.priority-name{font-size:13px;font-weight:600}
+.priority-desc{font-size:11px;color:#888;line-height:1.55;flex:1}
+.score-row{display:flex;align-items:center;gap:6px;margin-top:6px}
+.score-bar-bg{flex:1;height:4px;background:#f0ece5;border-radius:4px;overflow:hidden}
+.score-bar{height:100%;border-radius:4px}
+.score-val{font-size:11px;font-weight:700;min-width:24px;text-align:right}
+.spots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:36px}
+.spot-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e8e0d4;display:flex;flex-direction:column}
+.spot-img{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#1a1a1a;flex-shrink:0}
+.spot-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.spot-body{padding:12px 14px}
+.spot-type{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.spot-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.spot-desc{font-size:11px;color:#888;line-height:1.55}
+.logistics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px}
+.log-card{background:#fff;border-radius:12px;padding:18px;text-align:center;border:1px solid #e8e0d4}
+.log-icon{font-size:22px;margin-bottom:8px}
+.log-val{font-size:20px;font-weight:700;margin-bottom:3px}
+.log-label{font-size:10px;color:#999;letter-spacing:1px;text-transform:uppercase}
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
+.hl-item{background:#fff;border-radius:12px;padding:16px 18px;border:1px solid #e8e0d4;display:flex;align-items:flex-start;gap:12px}
+.hl-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hl-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.hl-text{font-size:11px;color:#888;line-height:1.6}
+.vs-table{background:#0d0d0d;border-radius:16px;padding:28px;margin-bottom:32px;margin-top:32px}
+.vs-table-title{text-align:center;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:22px}
+.vs-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);align-items:center}
+.vs-row:last-child{border-bottom:none}
+.vs-row.header{color:rgba(255,255,255,0.45);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;padding-bottom:16px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.vs-cat{color:rgba(255,255,255,0.85);font-size:12px;font-weight:500}
+.vs-score{text-align:center;font-size:14px;font-weight:700}
+.vs-score.high{color:#2ecc71}.vs-score.mid{color:#c9a84c}.vs-score.low{color:#666}.vs-score.fail{color:#e05c4a}
+.vote-wrap{text-align:center;padding:32px 0 40px}
+.vote-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:8px;color:#1a1a1a}
+.vote-sub{font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:36px}
+.vote-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:36px;max-width:700px;margin-left:auto;margin-right:auto}
+.vote-card{background:#fff;border-radius:18px;overflow:hidden;border:2px solid #e8e0d4;cursor:pointer;transition:all 0.2s;text-align:center;display:flex;flex-direction:column}
+.vote-card:hover{transform:translateY(-3px);border-color:#c9a84c}
+.vote-card.voted-marbella{border-color:#e05c4a;background:#fff8f7}
+.vote-card.voted-mykonos{border-color:#4a90d9;background:#f7faff}
+.vote-img{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:#1a1a1a;flex-shrink:0}
+.vote-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vote-card-body{padding:18px 16px}
+.vote-card-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:6px}
+.vote-card-desc{font-size:11px;color:#888;margin-bottom:14px;line-height:1.55;min-height:48px}
+.vote-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.2s;color:#fff}
+.vote-btn.marbella{background:#e05c4a}.vote-btn.mykonos{background:#4a90d9}
+.vote-btn:hover{opacity:0.85;transform:scale(1.04)}
+.tally{background:#0d0d0d;border-radius:16px;padding:28px 32px;margin-top:8px;max-width:700px;margin-left:auto;margin-right:auto}
+.tally-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:22px}
+.tally-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.tally-label{font-size:13px;font-weight:600;color:#fff;min-width:100px;display:flex;align-items:center;gap:8px}
+.tally-bar-bg{flex:1;height:10px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden}
+.tally-bar{height:100%;border-radius:10px;transition:width 0.6s cubic-bezier(.4,0,.2,1)}
+.tally-count{font-size:14px;font-weight:700;min-width:26px;text-align:right;color:#fff}
+.tally-winner{text-align:center;margin-top:22px;font-family:'Playfair Display',serif;font-size:17px;color:#c9a84c;font-style:italic}
+.reset-btn{margin-top:16px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:8px 18px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;border-radius:20px;cursor:pointer;font-family:'Outfit',sans-serif;display:block;margin-left:auto;margin-right:auto}
+.reset-btn:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.8)}
+@media(max-width:720px){
+  .cover{aspect-ratio:4/5;max-height:none}
+  .cover-overlay{padding:32px 24px 28px}
+  .cover-medal{top:24px;right:24px;width:56px;height:56px;font-size:28px}
+  .priorities-grid{grid-template-columns:repeat(2,1fr)}
+  .spots-grid{grid-template-columns:1fr}
+  .vote-cards{grid-template-columns:1fr}
+  .highlights{grid-template-columns:1fr}
+  .verdict-strip{grid-template-columns:1fr;gap:0}
+  .verdict-cell{border-right:none;border-bottom:1px solid rgba(255,255,255,0.07)}
+  .vs-row{grid-template-columns:1.5fr 1fr 1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Boys Trip Official Cheat Sheet</div>
+  <h1>The <em>Platinum</em><br>Anniversary 2028</h1>
+  <p class="hero-sub">Two destinations. One vote. No backing out.</p>
+</div>
+
+<div class="committee">
+  <div class="committee-label">✦ The Entertainment Committee ✦</div>
+  <div class="committee-row">
+    <div class="member"><img class="member-photo" src="images/committee-chairman.jpg" alt="The Chairman"><div class="member-name">The Chairman</div><div class="member-role">Chief Vibes Officer</div></div>
+    <div class="member"><img class="member-photo" src="images/committee-closer.jpg" alt="The Closer"><div class="member-name">The Closer</div><div class="member-role">Director of Operations</div></div>
+    <div class="member"><img class="member-photo" src="images/committee-fixer.jpg" alt="The Fixer"><div class="member-name">The Fixer</div><div class="member-role">Head of Leisure & Logistics</div></div>
+  </div>
+</div>
+
+<div class="dest-nav">
+  <button class="dest-btn active" data-dest="marbella" onclick="showDest('marbella')">🇪🇸 Marbella</button>
+  <button class="dest-btn" data-dest="mykonos" onclick="showDest('mykonos')">🇬🇷 Mykonos</button>
+  <button class="dest-btn" data-dest="vs" onclick="showDest('vs')">⚔️ Head to Head</button>
+  <button class="dest-btn" data-dest="vote" onclick="showDest('vote')">🗳️ Cast Your Vote</button>
+</div>
+
+<div class="dest-panel active" id="panel-marbella">
+  <div class="cover marbella">
+    <img class="cover-img" src="images/marbella-hero.jpg" alt="Marbella">
+    <div class="cover-overlay">
+      <div class="cover-flag">🇪🇸</div>
+      <div class="cover-title"><em>Mar</em>bella</div>
+      <div class="cover-sub">Costa del Sol · Andalucía, Spain</div>
+    </div>
+    <div class="cover-medal">🥇</div>
+  </div>
+  <div class="verdict-strip">
+    <div class="verdict-cell accent"><div class="verdict-label">Verdict</div><div class="verdict-val">Most Well-Rounded</div></div>
+    <div class="verdict-cell"><div class="verdict-label">Flight Time</div><div class="verdict-val">2.5 hrs from LDN</div></div>
+    <div class="verdict-cell"><div class="verdict-label">Avg Score</div><div class="verdict-val">8.97 / 10</div></div>
+  </div>
+  <div class="content">
+    <div class="intro-strip"><p class="intro-text">"Every priority covered at a high level. World-class golf, beach clubs, incredible villas, padel everywhere, and a social scene built for exactly this kind of group."</p></div>
+    <div class="section-title">Priority Breakdown — tap any card to dig deeper</div>
+    <div class="priorities-grid">
+      <a class="priority-card" href="https://www.airbnb.co.uk/marbella-spain/stays" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/marbella-villa.jpg" alt="Villa"><div class="pri-badge">#1 Villa</div><div class="read-more">Browse villas →</div></div>
+        <div class="priority-body"><div class="priority-icon">🏠</div><div class="priority-name">Villa & Relaxation</div><div class="priority-desc">Golden Mile private estates with staff and pools. Best in class.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:95%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">9.5</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.tripadvisor.co.uk/Restaurants-g187439-Marbella_Costa_del_Sol_Province_of_Malaga_Andalucia.html" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/marbella-food.jpg" alt="Food"><div class="pri-badge">#2 Food</div><div class="read-more">Restaurants →</div></div>
+        <div class="priority-body"><div class="priority-icon">🍽️</div><div class="priority-name">Food & Drink</div><div class="priority-desc">Nobu, Coya, Zozoi. Every cuisine, every price point.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:92%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">9.2</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.tripadvisor.co.uk/Attractions-g187439-Activities-c20-t81-Marbella_Costa_del_Sol_Province_of_Malaga_Andalucia.html" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/marbella-nightlife.jpg" alt="Nightlife"><div class="pri-badge">#3 Nightlife</div><div class="read-more">Nightlife →</div></div>
+        <div class="priority-body"><div class="priority-icon">🎉</div><div class="priority-name">Nightlife</div><div class="priority-desc">Puerto Banús strip, Olivia Valere, La Sala. Serious scene.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:88%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">8.8</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.golfbreaks.com/destinations/spain/costa-del-sol/marbella/" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/marbella-golf.jpg" alt="Golf"><div class="pri-badge">#4 Golf</div><div class="read-more">Tee times →</div></div>
+        <div class="priority-body"><div class="priority-icon">⛳</div><div class="priority-name">Golf</div><div class="priority-desc">Valderrama, La Quinta, Aloha. Best on the list by miles.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:98%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">9.8</div></div></div>
+      </a>
+      <a class="priority-card" href="https://playtomic.com/" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/padel-court.jpg" alt="Padel"><div class="pri-badge">#5 Sports</div><div class="read-more">Book courts →</div></div>
+        <div class="priority-body"><div class="priority-icon">🎾</div><div class="priority-name">Padel & Sports</div><div class="priority-desc">Padel started here. Courts everywhere, all skill levels.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:96%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">9.6</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.click-and-boat.com/en/boat-rental/marbella" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/marbella-boat.jpg" alt="Boat"><div class="pri-badge">#6 Boats</div><div class="read-more">Charter →</div></div>
+        <div class="priority-body"><div class="priority-icon">🛥️</div><div class="priority-name">Boat Trips</div><div class="priority-desc">Yacht charters from Puerto Banús. Good but not Greek island level.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:78%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">7.8</div></div></div>
+      </a>
+    </div>
+    <div class="section-title">Must-Hit Spots</div>
+    <div class="spots-grid">
+      <div class="spot-card"><div class="spot-img"><img src="images/marbella-nikki-beach.jpg" alt="Nikki Beach"></div><div class="spot-body"><div class="spot-type" style="color:#e05c4a">Beach Club</div><div class="spot-name">Nikki Beach & Ocean Club</div><div class="spot-desc">Day beds, magnums of rosé, DJs from midday.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/marbella-golf.jpg" alt="Valderrama"></div><div class="spot-body"><div class="spot-type" style="color:#e05c4a">Golf</div><div class="spot-name">Valderrama Golf Club</div><div class="spot-desc">Ryder Cup host. Book months ahead.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/marbella-boat.jpg" alt="Puerto Banus"></div><div class="spot-body"><div class="spot-type" style="color:#e05c4a">Marina</div><div class="spot-name">Puerto Banús</div><div class="spot-desc">Superyachts, luxury brands, rooftop bars.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/marbella-food.jpg" alt="Nobu"></div><div class="spot-body"><div class="spot-type" style="color:#e05c4a">Restaurant</div><div class="spot-name">Nobu Marbella</div><div class="spot-desc">Black cod miso, drinks on the terrace.</div></div></div>
+    </div>
+    <div class="section-title">Logistics</div>
+    <div class="logistics">
+      <div class="log-card"><div class="log-icon">✈️</div><div class="log-val">2.5 hrs</div><div class="log-label">From London</div></div>
+      <div class="log-card"><div class="log-icon">🌡️</div><div class="log-val">28–32°C</div><div class="log-label">Jun–Sep Temp</div></div>
+      <div class="log-card"><div class="log-icon">☔</div><div class="log-val">~5mm</div><div class="log-label">Monthly Rain</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="dest-panel" id="panel-mykonos">
+  <div class="cover mykonos">
+    <img class="cover-img" src="images/mykonos-hero.jpg" alt="Mykonos">
+    <div class="cover-overlay">
+      <div class="cover-flag">🇬🇷</div>
+      <div class="cover-title"><em>My</em>konos</div>
+      <div class="cover-sub">Cyclades · Aegean Sea, Greece</div>
+    </div>
+    <div class="cover-medal">🥈</div>
+  </div>
+  <div class="verdict-strip">
+    <div class="verdict-cell accent"><div class="verdict-label">Verdict</div><div class="verdict-val">Best Beach Clubs</div></div>
+    <div class="verdict-cell"><div class="verdict-label">Flight Time</div><div class="verdict-val">3.5 hrs from LDN</div></div>
+    <div class="verdict-cell"><div class="verdict-label">Avg Score</div><div class="verdict-val">7.39 / 10</div></div>
+  </div>
+  <div class="content">
+    <div class="intro-strip"><p class="intro-text">"Nammos, Scorpios, Principote — unmatched beach club scene. Exceptional villas, great food, incredible boat trips. The gap: zero golf on the island."</p></div>
+    <div class="section-title">Priority Breakdown — tap any card to dig deeper</div>
+    <div class="priorities-grid">
+      <a class="priority-card" href="https://www.airbnb.co.uk/mykonos-greece/stays" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/mykonos-villa.jpg" alt="Villa"><div class="pri-badge">#1 Villa</div><div class="read-more">Browse villas →</div></div>
+        <div class="priority-body"><div class="priority-icon">🏠</div><div class="priority-name">Villa & Relaxation</div><div class="priority-desc">Cycladic infinity pools with Aegean views. Stunning.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:93%;background:#4a90d9"></div></div><div class="score-val" style="color:#4a90d9">9.3</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.tripadvisor.co.uk/Restaurants-g189430-Mykonos_Cyclades_South_Aegean.html" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/mykonos-food.jpg" alt="Food"><div class="pri-badge">#2 Food</div><div class="read-more">Restaurants →</div></div>
+        <div class="priority-body"><div class="priority-icon">🍽️</div><div class="priority-name">Food & Drink</div><div class="priority-desc">Nammos, Roca, Interni. World-class on the water.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:90%;background:#4a90d9"></div></div><div class="score-val" style="color:#4a90d9">9.0</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.tripadvisor.co.uk/Attractions-g189430-Activities-c20-t81-Mykonos_Cyclades_South_Aegean.html" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/mykonos-nightlife.jpg" alt="Nightlife"><div class="pri-badge">#3 Nightlife</div><div class="read-more">Nightlife →</div></div>
+        <div class="priority-body"><div class="priority-icon">🎉</div><div class="priority-name">Nightlife</div><div class="priority-desc">Cavo Paradiso, Jackie O'. Best in the Med.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:97%;background:#4a90d9"></div></div><div class="score-val" style="color:#4a90d9">9.7</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.tripadvisor.co.uk/Attractions-g189398-Activities-c61-Greece.html" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/mykonos-no-golf.svg" alt="No golf"><div class="pri-badge gap">⚠️ Gap</div><div class="read-more">Read more →</div></div>
+        <div class="priority-body"><div class="priority-icon">⛳</div><div class="priority-name">Golf</div><div class="priority-desc">No course on the island. Real problem if golf matters.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:10%;background:#e05c4a"></div></div><div class="score-val" style="color:#e05c4a">1.0</div></div></div>
+      </a>
+      <a class="priority-card" href="https://playtomic.com/" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/padel-court.jpg" alt="Padel"><div class="pri-badge">#5 Sports</div><div class="read-more">Book courts →</div></div>
+        <div class="priority-body"><div class="priority-icon">🎾</div><div class="priority-name">Padel & Sports</div><div class="priority-desc">Limited courts. Not a padel culture. Villa tennis only.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:45%;background:#4a90d9"></div></div><div class="score-val" style="color:#4a90d9">4.5</div></div></div>
+      </a>
+      <a class="priority-card" href="https://www.click-and-boat.com/en/boat-rental/mykonos" target="_blank" rel="noopener">
+        <div class="priority-img"><img src="images/mykonos-boat.jpg" alt="Boat"><div class="pri-badge">#6 Boats</div><div class="read-more">Charter →</div></div>
+        <div class="priority-body"><div class="priority-icon">🛥️</div><div class="priority-name">Boat Trips</div><div class="priority-desc">Best on the list. Delos, Rhenia, Paros. Unforgettable.</div><div class="score-row"><div class="score-bar-bg"><div class="score-bar" style="width:97%;background:#4a90d9"></div></div><div class="score-val" style="color:#4a90d9">9.7</div></div></div>
+      </a>
+    </div>
+    <div class="section-title">Must-Hit Spots</div>
+    <div class="spots-grid">
+      <div class="spot-card"><div class="spot-img"><img src="images/mykonos-nammos.jpg" alt="Nammos"></div><div class="spot-body"><div class="spot-type" style="color:#4a90d9">Beach Club</div><div class="spot-name">Nammos Beach Club</div><div class="spot-desc">Most famous beach club in the world. Book months out.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/mykonos-scorpios.jpg" alt="Scorpios"></div><div class="spot-body"><div class="spot-type" style="color:#4a90d9">Beach Club</div><div class="spot-name">Scorpios</div><div class="spot-desc">Bohemian luxury, sunset ritual, world DJs.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/mykonos-boat.jpg" alt="Boat trip"></div><div class="spot-body"><div class="spot-type" style="color:#4a90d9">Boat Trip</div><div class="spot-name">Delos & Rhenia Day</div><div class="spot-desc">Private yacht charter. Split between the lads.</div></div></div>
+      <div class="spot-card"><div class="spot-img"><img src="images/mykonos-cavo-paradiso.jpg" alt="Cavo Paradiso"></div><div class="spot-body"><div class="spot-type" style="color:#4a90d9">Nightlife</div><div class="spot-name">Cavo Paradiso</div><div class="spot-desc">Cliff-top superclub. Best DJ lineups in Europe.</div></div></div>
+    </div>
+    <div class="section-title">Logistics</div>
+    <div class="logistics">
+      <div class="log-card"><div class="log-icon">✈️</div><div class="log-val">3.5 hrs</div><div class="log-label">From London</div></div>
+      <div class="log-card"><div class="log-icon">🌡️</div><div class="log-val">27–30°C</div><div class="log-label">Jun–Sep Temp</div></div>
+      <div class="log-card"><div class="log-icon">☔</div><div class="log-val">~5mm</div><div class="log-label">Monthly Rain</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="dest-panel" id="panel-vs">
+  <div class="content">
+    <div class="vs-table">
+      <div class="vs-table-title">Side By Side · All Priorities Scored</div>
+      <div class="vs-row header"><div></div><div style="text-align:center;color:#e05c4a">🇪🇸 Marbella</div><div style="text-align:center;color:#4a90d9">🇬🇷 Mykonos</div></div>
+      <div class="vs-row"><div class="vs-cat">🏠 Villa & Relaxation</div><div class="vs-score high">9.5</div><div class="vs-score high">9.3</div></div>
+      <div class="vs-row"><div class="vs-cat">🍽️ Food & Drink</div><div class="vs-score high">9.2</div><div class="vs-score high">9.0</div></div>
+      <div class="vs-row"><div class="vs-cat">🎉 Nightlife</div><div class="vs-score mid">8.8</div><div class="vs-score high">9.7</div></div>
+      <div class="vs-row"><div class="vs-cat">⛳ Golf</div><div class="vs-score high">9.8</div><div class="vs-score fail">1.0</div></div>
+      <div class="vs-row"><div class="vs-cat">🎾 Padel & Sports</div><div class="vs-score high">9.6</div><div class="vs-score low">4.5</div></div>
+      <div class="vs-row"><div class="vs-cat">🛥️ Boat Trips</div><div class="vs-score mid">7.8</div><div class="vs-score high">9.7</div></div>
+      <div class="vs-row"><div class="vs-cat">🏖️ Beach Clubs</div><div class="vs-score mid">8.5</div><div class="vs-score high">9.8</div></div>
+      <div class="vs-row"><div class="vs-cat">✈️ Flight Time</div><div class="vs-score high">9.0</div><div class="vs-score mid">7.5</div></div>
+      <div class="vs-row"><div class="vs-cat">💰 Value</div><div class="vs-score high">8.5</div><div class="vs-score low">6.0</div></div>
+      <div class="vs-row" style="border-top:1px solid rgba(255,255,255,0.2);margin-top:8px;padding-top:14px"><div class="vs-cat" style="font-weight:700">TOTAL AVERAGE</div><div class="vs-score high" style="font-size:16px">8.97</div><div class="vs-score mid" style="font-size:16px">7.39</div></div>
+    </div>
+    <div class="section-title">The Honest Take</div>
+    <div class="highlights">
+      <div class="hl-item"><div class="hl-icon">🏆</div><div><div class="hl-title">Marbella: no single weakness</div><div class="hl-text">Scores 7.8+ across every single priority. The most reliable choice for a group with varied interests.</div></div></div>
+      <div class="hl-item"><div class="hl-icon">⛳</div><div><div class="hl-title">Golf rules out Mykonos</div><div class="hl-text">Mykonos has zero courses on the island. If golf matters at all, Marbella is the only answer.</div></div></div>
+      <div class="hl-item"><div class="hl-icon">🎉</div><div><div class="hl-title">Mykonos wins peak moments</div><div class="hl-text">Beach clubs, boat trips and nightlife scenes that genuinely can't be matched anywhere else in the Med.</div></div></div>
+      <div class="hl-item"><div class="hl-icon">💰</div><div><div class="hl-title">Marbella wins on value</div><div class="hl-text">Mykonos in peak season is brutal — €200 watermelons at Nammos exist. Marbella is luxurious without the same shock.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="dest-panel" id="panel-vote">
+  <div class="content">
+    <div class="vote-wrap">
+      <div class="vote-title">Cast Your Vote</div>
+      <div class="vote-sub">One vote per browser · Click your pick</div>
+      <div class="vote-cards">
+        <div class="vote-card" id="vc-marbella" onclick="castVote('marbella')">
+          <div class="vote-img"><img src="images/marbella-hero.jpg" alt="Marbella"></div>
+          <div class="vote-card-body"><div class="vote-card-name">🇪🇸 Marbella</div><div class="vote-card-desc">The well-rounded all-rounder. Golf, padel, beach clubs, villas.</div><button class="vote-btn marbella">Vote Marbella</button></div>
+        </div>
+        <div class="vote-card" id="vc-mykonos" onclick="castVote('mykonos')">
+          <div class="vote-img"><img src="images/mykonos-hero.jpg" alt="Mykonos"></div>
+          <div class="vote-card-body"><div class="vote-card-name">🇬🇷 Mykonos</div><div class="vote-card-desc">Beach clubs, boats, villas. The highest highs in the Med.</div><button class="vote-btn mykonos">Vote Mykonos</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="tally">
+      <div class="tally-title">Live Tally · The Committee Votes</div>
+      <div class="tally-row"><div class="tally-label"><span style="color:#e05c4a">●</span> Marbella</div><div class="tally-bar-bg"><div class="tally-bar" id="bar-marbella" style="width:0%;background:#e05c4a"></div></div><div class="tally-count" id="count-marbella">0</div></div>
+      <div class="tally-row"><div class="tally-label"><span style="color:#4a90d9">●</span> Mykonos</div><div class="tally-bar-bg"><div class="tally-bar" id="bar-mykonos" style="width:0%;background:#4a90d9"></div></div><div class="tally-count" id="count-mykonos">0</div></div>
+      <div class="tally-winner" id="winner-text">No votes yet — be the first.</div>
+      <button class="reset-btn" onclick="resetVotes()">Reset Votes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showDest(d){
+  document.querySelectorAll('.dest-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dest-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+d).classList.add('active');
+  document.querySelector('[data-dest="'+d+'"]').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function getVotes(){try{return JSON.parse(localStorage.getItem('platinumVotes')||'{"marbella":0,"mykonos":0}');}catch(e){return {marbella:0,mykonos:0};}}
+function saveVotes(v){try{localStorage.setItem('platinumVotes',JSON.stringify(v));}catch(e){}}
+function getMyVote(){try{return localStorage.getItem('platinumMyVote');}catch(e){return null;}}
+function setMyVote(v){try{localStorage.setItem('platinumMyVote',v);}catch(e){}}
+function renderTally(){
+  const v=getVotes();const total=(v.marbella||0)+(v.mykonos||0);
+  ['marbella','mykonos'].forEach(k=>{document.getElementById('count-'+k).textContent=v[k]||0;const pct=total>0?((v[k]||0)/total*100):0;document.getElementById('bar-'+k).style.width=pct+'%';});
+  const myVote=getMyVote();document.querySelectorAll('.vote-card').forEach(c=>{c.className='vote-card';});
+  if(myVote){document.getElementById('vc-'+myVote).classList.add('voted-'+myVote);}
+  const w=document.getElementById('winner-text');
+  if(total===0){w.textContent='No votes yet — be the first.';return;}
+  if(v.marbella===v.mykonos){w.textContent='Tied: Marbella & Mykonos';}
+  else if((v.marbella||0)>(v.mykonos||0)){w.textContent='Currently winning: Marbella';}
+  else{w.textContent='Currently winning: Mykonos';}
+}
+function castVote(choice){const my=getMyVote();const v=getVotes();if(my===choice)return;if(my){v[my]=Math.max(0,(v[my]||0)-1);}v[choice]=(v[choice]||0)+1;saveVotes(v);setMyVote(choice);renderTally();}
+function resetVotes(){if(confirm('Reset all votes?')){try{localStorage.removeItem('platinumVotes');localStorage.removeItem('platinumMyVote');}catch(e){}renderTally();}}
+renderTally();
+</script>
+</body>
+</html>
